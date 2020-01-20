@@ -7,11 +7,27 @@ let links = [
     description: "Fullstack tutorial for GraphQL",
   },
 ];
+const id = (() => {
+  let id = links.length;
+  return () => ++id;
+})();
 
 const resolvers = {
   Query: {
     info: () => `This is the API of a Hackernews Clone`,
     feed: () => links,
+  },
+
+  Mutation: {
+    post: (parent, args) => {
+      const link = {
+        id: `link-${id()}`,
+        description: args.description,
+        url: args.url,
+      };
+      links.push(link);
+      return link;
+    },
   },
 
   Link: {
