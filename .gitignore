@@ -104,6 +104,9 @@ dist/
 # DynamoDB Local files
 .dynamodb/
 
+# Prisma generated files
+**/generated/
+
 # Temporary folders
 tmp/
 temp/
