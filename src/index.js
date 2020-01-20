@@ -16,6 +16,7 @@ const resolvers = {
   Query: {
     info: () => `This is the API of a Hackernews Clone`,
     feed: () => links,
+    link: (parent, { id }) => links.find(link => link.id === id),
   },
 
   Mutation: {
@@ -26,6 +27,22 @@ const resolvers = {
         url: args.url,
       };
       links.push(link);
+      return link;
+    },
+
+    update: (parent, args) => {
+      const link = links.find(link => link.id === args.id);
+      if (!link) return null;
+
+      if (args.url) link.url = args.url;
+      if (args.description) link.description = args.description;
+
+      return link;
+    },
+
+    delete: (parent, args) => {
+      const link = links.find(link => link.id === args.id);
+      links = links.filter(link => link.id !== args.id);
       return link;
     },
   },
