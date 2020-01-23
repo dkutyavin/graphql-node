@@ -5,7 +5,12 @@ endpoint: https://eu1.prisma.sh/daniil-kutyavin-33909c/hn-node/dev
 # Points to the file that contains your datamodel
 datamodel: datamodel.prisma
 
-# Specifies language & location for the generated Prisma client
+# Specifies the language and directory for the generated Prisma client.
 generate:
   - generator: javascript-client
     output: ../src/generated/prisma-client
+
+# Ensures Prisma client is re-generated after a datamodel change.
+hooks:
+  post-deploy:
+    - prisma generate
